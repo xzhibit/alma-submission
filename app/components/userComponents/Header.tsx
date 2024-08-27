@@ -3,14 +3,28 @@ import { useRouter } from "next/navigation";
 import styles from "./UserComponents.module.css";
 import Image from "next/image";
 
+import { useSession, getSession } from "next-auth/react"
+
 export const Header = () => {
-  const router = useRouter();
+  const { data: session, status } = useSession()
   const login = () => {
-    router.push('/login')
+    router.push('/api/auth/signin');
   }
-    return (
+  const dash = () => {
+    router.push('/admin')
+  }
+
+  let button = <><button className={styles.loginLink} onClick={login}>Login</button></>;
+  if (status === "authenticated") {
+    button = <><button className={styles.loginLink} onClick={dash}>Go to dashboard</button></>;
+  }
+
+
+  const router = useRouter();
+  return (
       <div className={styles.header}>
-        <button className={styles.loginLink} onClick={login}>Login</button>
+        {button}
+        
         <Image
                 src="/alma-logo.png"
                 className={styles.logo}

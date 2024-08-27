@@ -1,13 +1,11 @@
-import { AdminSidebar } from "../components/admin/AdminSidebar";
-import { Leads } from "../components/admin/Leads";
-import styles from "./Admin.module.css"
+"use client"
 
-export default function AdminPage() {
-    return (
-      <div className={styles.container}>
-        <AdminSidebar />
-        <Leads />
-      </div>
-    );
+import { AdminPage } from "../components/admin/AdminPage";
+
+export default function Admin() {
+
+  return (
+      <AdminPage />
+  );
   }
   

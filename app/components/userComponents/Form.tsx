@@ -24,6 +24,7 @@ export const Form = () => {
     const [countryValid, setCountryValid] = useState<boolean>(true);
     const [howValid, setHowValid] = useState<boolean>(true);
 
+    const [labelText, setLabelText] = useState<string>("Click anywhere in this box to upload a CV");
     const clickBox = () => { }
 
     const resetValidities = () => {
@@ -62,7 +63,7 @@ export const Form = () => {
             last_name: target.last_name.value,
             email: target.email.value,
             linkedin: target.linkedin.value,
-            country: target.country.value,
+            country: target.country.label,
             how_can_we_help: target.how_can_we_help.value,
             selected_visas: ''
         }
@@ -98,13 +99,15 @@ export const Form = () => {
         if (fileInput && fileInput.current && fileInput.current.files) {
             filePath = "./public/uploads/" + fileInput.current.files[0].name;
         }
+
+
         const stateUser: SingleUser = {
             first_name: formFields['first_name'] as string,
             last_name: formFields['last_name'] as string,
             submitted: getTime(),
             email: formFields['email'] as string,
             linkedin_url: formFields['linkedin'] as string,
-            country: formFields['country'] as string,
+            country: formFields['country'] || "",
             message: formFields['how_can_we_help'] as string,
             visa_categories: formFields['selected_visas'],
             resume: `./public/uploads/${filePath}`,
@@ -156,12 +159,24 @@ export const Form = () => {
         if (empty(formFields.email) || invalidEmail(formFields.email)) { setEmailValid(false) }
         if (empty(formFields.linkedin) || invalidLinkedin(formFields.linkedin)) { setLinkedinValid(false) }
         if (empty(formFields.linkedin)) { setLinkedinValid(false) }
-        if (empty(formFields.country)) { setCountryValid(false) }
         if (empty(formFields.how_can_we_help)) { setHowValid(false) }
 
         if ([firstNameValid, lastNameValid, emailValid, linkedinValid, countryValid, howValid].every(test => test)) { return true; }
 
         return false;
+    }
+
+    const updateFileName = (e: React.ChangeEvent) => {
+        let filePath = '';
+        if (fileInput && fileInput.current && fileInput.current.files && fileInput.current.files[0] && fileInput.current.files[0].name) {
+            filePath = fileInput.current.files[0].name;
+        }
+        if (filePath != '') {
+            setLabelText(filePath);
+        } else {
+            setLabelText("Click anywhere in this box to upload a CV");
+        }
+
     }
 
     return (
@@ -184,8 +199,8 @@ export const Form = () => {
                 {!emailValid && <span className="invalid-help">Invalid email address.</span>}
                 <input type="text" name="linkedin" className={styles.form_text} placeholder="LinkedIn" />
                 {!linkedinValid && <span className="invalid-help">Invalid LinkedIn URL.</span>}
-                <input type="file" name="file" ref={fileInput} className="hidden" />
-                <label htmlFor="file" className="fakeFile" onClick={() => {fileInput.current?.click()}}>Click anywhere in this box to upload a CV</label>
+                <input type="file" name="file" ref={fileInput} className="hidden" onChange={updateFileName} />
+                <label htmlFor="file" className="fakeFile" onClick={() => {fileInput.current?.click()}}>{labelText}</label>
                 <Select
                     options={countries}
                     placeholder="Country of Citizenship"

@@ -4,13 +4,13 @@ import type { PayloadAction } from "@reduxjs/toolkit";
 import { fetchUserData } from "./userdataAPI";
 
 export interface SingleUser {
-    first_name: string;
-    last_name: string;
-    submitted: string;
-    email: string;
-    linkedin_url: string;
-    country: string;
-    visa_categories: string;
+    first_name?: string;
+    last_name?: string;
+    submitted?: string;
+    email?: string;
+    linkedin_url?: string;
+    country?: string;
+    visa_categories?: string;
     message: string;
     status?: string;
     resume?: string;
@@ -21,7 +21,7 @@ export interface UserDataSliceState {
 }
 
 const initialState: UserDataSliceState = {
-  data: [{"first_name":"", "last_name":"","submitted":"", "email":"", "linkedin_url":"","country":"","visa_categories":"","message":""}],
+  data: [],
   status: "loading",
 };
 
