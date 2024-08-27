@@ -34,11 +34,12 @@ export const userDataSlice = createAppSlice({
   reducers: (create) => ({
     markReachedOut: create.reducer((state, action: PayloadAction<string>) => {
         const dataCopy = JSON.parse(JSON.stringify(state.data));
-        for (let [i, user] of dataCopy) {
-            if (user.email == action.payload) {
+        for (let i in dataCopy) {
+            if (dataCopy[i].email == action.payload) {
                 dataCopy[i]["status"] = "REACHED_OUT";
             }
         }
+        state.data = JSON.parse(JSON.stringify(dataCopy));
     }),
     appendData: create.reducer((state, action: PayloadAction<SingleUser>) => {
       console.log("IN REDUCER")  

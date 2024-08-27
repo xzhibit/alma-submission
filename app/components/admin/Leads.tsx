@@ -21,6 +21,8 @@ export const Leads = () => {
     const [search, setSearch] = useState<string>("");
 
     const data = useAppSelector(selectData);
+    // Clone one for sorting
+    let localData = JSON.parse(JSON.stringify(data));
 
     const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const target = event.target;
@@ -28,11 +30,12 @@ export const Leads = () => {
     };
 
     const dispatch = useAppDispatch();
-
+    let currentSort = 'default';
+    let currentSorting = 'asc';
     const reachedOut = (x:any) => {
         dispatch(markReachedOut(x));
-        setRows(createRows(data))
-        // Update row on page as well
+        localData = JSON.parse(JSON.stringify(data));
+        setRows(createRows(localData))
     }
 
     const createRows = (data:any) => {
@@ -46,7 +49,20 @@ export const Leads = () => {
             </tr>
         </>))
     }
-    const [rows, setRows] = useState(createRows(data));
+    const [rows, setRows] = useState(createRows(localData));
+    const sortby = (sortCol: string) => {
+        localData = localData.sort((a:any,b:any) => a[sortCol] > b[sortCol] ? 1 : -1);
+        if (currentSort == sortCol && currentSorting == 'desc') {
+            // Flip sorting
+            localData.reverse();
+            currentSorting = 'asc';
+        }
+        else {
+            currentSorting = 'desc';
+        }
+        currentSort = sortCol;
+        setRows(createRows(localData));
+    }
 
     return (
         <div className={styles.mainContainer}>
@@ -75,10 +91,10 @@ export const Leads = () => {
             <table className="datatable">
                 <thead>
                     <tr>
-                        <th>Name</th>
-                        <th>Submitted</th>
-                        <th>Status</th>
-                        <th>Country</th>
+                        <th onClick={sortby('name')}>Name</th>
+                        <th onClick={sortby('date')}>Submitted</th>
+                        <th onClick={sortby('status')}>Status</th>
+                        <th onClick={sortby('country')}>Country</th>
                         <th></th>
                     </tr>
                 </thead>

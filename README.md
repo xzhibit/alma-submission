@@ -1,29 +1,24 @@
-# Redux Toolkit TypeScript Example
+# Alma AI Submission
 
-This example shows how to integrate Next.js with [Redux Toolkit](https://redux-toolkit.js.org).
+## Usage
+- Clone this repository: `git clone git@github.com:xzhibit/alma-submission.git` (Ensure your Git + SSH access is set up - [Details here](https://docs.github.com/en/authentication/connecting-to-github-with-ssh))
+- `cd` into the cloned directory (`cd alma-submission`)
+- Ensure node and npm are installed - [Details](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm). Built on node v20.14.0.
+- Install required node_modules - `npm install`
+- Once modules are installed, create a .env file in the directory root with the following line in it: `NEXTAUTH_URL=http://<YOUR LOCAL IP>/api/auth`. In my case, I used an apache reverse proxy to run this app over http://alma.lan, so for me this line was: `NEXTAUTH_URL=http://alma.lan/api/auth`, however `NEXTAUTH_URL=http://localhost:3000/api/auth` will work if you are accessing this on the same machine.
+- Run `npm run dev` to run in development mode
+- To deploy on production, run `npm build`. This will generate static files required to serve this project in a `.next` directory. Copy this directory and setup nginx/apache as required to serve .next/static/index.html as Index file.
 
-**Redux Toolkit**(also known as "RTK" for short) provides a standardized way to write Redux logic. It includes utilities that help simplify many common use cases, including [store setup](https://redux-toolkit.js.org/api/configureStore), [creating reducers and writing immutable update logic](https://redux-toolkit.js.org/api/createreducer), and even [creating entire "slices" of state at once](https://redux-toolkit.js.org/api/createslice). This example showcases each of these features in conjunction with Next.js.
+## Architecture
+- The starting point for this code was `create-react-app` with the `with-redux` example, so the architecture is based around that structure.
+- In the app folder, there are the pages defined in their individual folders, with a `page.tsx` file to indicate entry point for the page.
+- The entry point for the app is the `app/layout.tsx` file, which calls the `app/page.tsx` file, as expected by NextJS
+- The entire application is wrapped with two providers: `SessionProvider` and `StoreProvider`. 
+    - The `SessionProvider` module ensures that authentication is maintained across the session.
+    - The `StoreProvider` module maintains state across the application. This state is **lost** on page refreshes, as `redux-persistent` has not been used to persist state in LocalStorage
 
-## Deploy Your Own
+## Additional notes
+- The `Admin` page first checks for login. Please use 'shuo' for username and 'alma' for password, as the authentication is just a mock with Next-Auth.js at this stage.
+- Please navigate using the buttons only. Accessing the page with URLs will result in state being lost (as described above).
 
-Deploy the example using [Vercel](https://vercel.com?utm_source=github&utm_medium=readme&utm_campaign=next-example):
-
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/vercel/next.js/tree/canary/examples/with-redux&project-name=with-redux&repository-name=with-redux)
-
-## How to Use
-
-Execute [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app) with [npm](https://docs.npmjs.com/cli/init), [Yarn](https://yarnpkg.com/lang/en/docs/cli/create/), or [pnpm](https://pnpm.io) to bootstrap the example:
-
-```bash
-npx create-next-app --example with-redux with-redux-app
-```
-
-```bash
-yarn create next-app --example with-redux with-redux-app
-```
-
-```bash
-pnpm create next-app --example with-redux with-redux-app
-```
-
-Deploy it to the cloud with [Vercel](https://vercel.com/new?utm_source=github&utm_medium=readme&utm_campaign=next-example) ([Documentation](https://nextjs.org/docs/deployment)).
+## Screen grab
