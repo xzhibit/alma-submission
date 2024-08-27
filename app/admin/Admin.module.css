@@ -1,0 +1,114 @@
+.container {
+    width: 100%;
+    height: 100vh;
+    position: relative;
+    display: flex;
+}
+
+.container::before {
+    position: absolute;
+    top: -50px;
+    left: -50px;
+    content: " ";
+    height: 300px;
+    width: 400px;
+    background-color: rgb(249 253 208);
+    border-radius: 0 0 300px 0;
+    filter: blur(50px);
+    z-index: -1;
+}
+
+.sidebar {
+    flex-grow: 0;
+    flex-shrink: 0;
+    padding: 32px;
+    width: 300px;
+    height: 100vh;
+    border-right: 1px solid #ddd;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.sidebarmenu {
+    list-style-type: none;
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+    margin-top: 50px;
+}
+
+.bottomGroup {
+    display:flex;
+    column-gap:14px;
+    align-items:center;
+}
+
+.adminIcon {
+    height:40px;
+    width:40px;
+    background: #aaa;
+    font-size:18px;
+    font-weight:700;
+    color:#000;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    border-radius:50%;
+}
+
+.adminName {
+    font-weight:800;
+    color:#000;
+    font-size:16px;
+}
+
+.menuItem {
+    padding: 32px 0 0 0;
+}
+
+.menuActive {
+    font-weight: 700;
+}
+
+.dashboardTitle {
+    font-size: 32px;
+    font-weight: 700;
+    margin-top: 0;
+    padding-top: 0;
+}
+
+.mainContainer {
+    padding: 30px 20px;
+    flex-grow: 1;
+}
+
+.title {
+    font-size: 24px;
+}
+
+.searchBarWrapper {
+    display:flex;
+}
+
+.inputWithIcon {
+    display: flex;
+    align-items: flex-start;
+    padding: 15px;
+    outline: none;
+    border: 1px solid #eee;
+    border-radius: 15px;
+    font-size: 14px;
+    width: 300px;
+}
+
+.inputIcon {
+    
+}
+
+.searchBar {
+    border:none;
+    padding:0;
+    margin-left:12px;
+}
+

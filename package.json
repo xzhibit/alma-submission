@@ -1,7 +1,7 @@
 {
   "private": true,
   "scripts": {
-    "dev": "next",
+    "dev": "next dev -H 0.0.0.0",
     "build": "next build",
     "start": "next start"
   },
@@ -10,7 +10,8 @@
     "next": "latest",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-redux": "^9.1.0"
+    "react-redux": "^9.1.0",
+    "react-select": "^5.8.0"
   },
   "devDependencies": {
     "@types/node": "20.2.5",

@@ -1,9 +1,21 @@
+::placeholder,
+.countries-select__placeholder {
+  color: #ccc;
+  opacity: 1;
+  font-weight:400;
+}
+
+.countries-select__control svg {
+  fill: #ccc;
+  stroke: #ccc;
+}
+
 html,
 body {
   min-height: 100vh;
   padding: 0;
   margin: 0;
-  font-family: system-ui, sans-serif;
+  font-family: 'Montserrat', sans-serif;
 }
 
 a {
@@ -13,4 +25,216 @@ a {
 
 * {
   box-sizing: border-box;
+}
+button, 
+input,
+.countries-select__control,
+.fakeFile {
+    font-family: inherit;
+}
+
+input,
+.countries-select__control,
+textarea,
+.fakeFile {
+  padding:15px;
+  outline:none;
+  border:1px solid #eee;
+  border-radius:15px;
+  font-size:14px;
+  text-align: start;
+  font-weight:600;
+}
+input:not(:first-of-type):not(input[type='submit']), 
+.countries-select__control,
+.fakeFile,
+textarea {
+  margin-top:10px;
+}
+.fakeFile {
+  display: block;
+  color:#ccc;
+  font-weight:400;
+}
+.visa-icon {
+  margin-top: 35px;
+  margin-bottom: -20px;
+}
+.heart-icon {
+  margin-top: 20px;
+  margin-bottom: -20px;
+}
+.custom-checkbox {
+  text-align:left;
+  display: block;
+  font-weight:600;
+  position: relative;
+  padding-left: 24px;
+  margin-bottom: 10px;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+.custom-checkbox input {
+  position: absolute;
+  opacity: 0;
+  height: 0;
+  width: 0;
+}
+
+.custom-checkbox label::before {
+  content: " ";
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 20px;
+  width: 20px;
+  border-radius:5px;
+  border:1px solid #ccc;
+  background-color: #fff;
+}
+
+.custom-checkbox input:checked ~ label::before {
+  background-color: #2196F3;
+}
+
+/* Create the checkmark/indicator (hidden when not checked) */
+.custom-checkbox label::after {
+  content: " ";
+  position: absolute;
+  opacity:0;
+  left: 7px;
+  top: 2px;
+  width: 5px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 3px 3px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+
+/* Show the checkmark when checked */
+.custom-checkbox input:checked ~ label::after {
+  opacity: 1;
+}
+
+.custom-checkbox label {
+  margin-left: 7px;
+  cursor: pointer;
+}
+.invalid-help {
+  color:#f00;
+  font-size:14px;
+  margin-top:10px;
+  margin-bottom:15px;
+  text-align:left;
+  display: block;
+}
+
+.countries-select__menu {
+  background:#fff;
+  border:1px solid #ccc;
+  border-radius: 10px;
+}
+.countries-select__option {
+  text-align: left;
+  padding: 8px 15px 5px;
+}
+.countries-select__option:hover {
+  background-color:#cfceff;
+}
+
+.searchBar {
+  display:block;
+  width:100%;
+  margin-top:16px;
+  padding-left:30px;
+  position:relative;
+}
+.status-search {
+  margin-left: 12px;
+}
+.status-search .countries-select__control{
+  margin-top: 0;
+}
+.datatable {
+  width:100%;
+  border:1px solid #ddd;
+  margin-top:12px;
+  border-radius:20px;
+  border-spacing:0;
+}
+.datatable td, .datatable th {
+  text-align:left;
+}
+.datatable thead th {
+  padding:15px 20px 20px 20px;
+  color:#ddd;
+  font-weight:400;
+  font-size:14px;
+  position:relative;
+  border-bottom:1px solid #ddd;
+  cursor:pointer;
+}
+.datatable thead th::after {
+  content: url(/arrow-down.svg);
+  height: 16px;
+  width: 12px;
+  display: inline-block;
+  top: 3px;
+  position: relative;
+  left: 5px;
+}
+.datatable thead th.flipped::after {
+  transform: rotate(180deg);
+}
+.datatable td {
+  padding: 10px 10px;
+  font-size:15px;
+  font-weight:500;
+  padding: 16px 20px;
+  border-bottom:1px solid #ddd;
+}
+
+.datatable tfoot td {
+  text-align:right;
+  padding-right:50px;
+  border-bottom:none;
+}
+
+.next {
+  transform: rotate(180deg);
+}
+.pagination {
+  display: flex;
+  column-gap:12px;
+  justify-content: flex-end;
+}
+.pagination-button {
+  border:none;
+  outline:none;
+  height:24px;
+  width:24px;
+  padding:4px;
+  display: flex;
+  justify-content: center;align-items: center;
+  background:transparent;
+  cursor:pointer;
+}
+.pagination-button.active-button {
+  font-weight:700;
+  border:1px solid #000;
+}
+.pagination-button.disabled {
+  color:#ddd;
+  cursor:default;
+}
+.pagination-button.disabled img {
+  filter:opacity(0.2);
+}
+.hidden {
+  display:none;
 }
