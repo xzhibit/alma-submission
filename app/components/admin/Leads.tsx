@@ -49,9 +49,7 @@ export const Leads = () => {
                         <th>Country</th>
                     </tr>
                 </thead>
-                <tbody>
-                    
-                </tbody>
+                <tbody></tbody>
                 <tfoot>
                     <tr>
                         <td colSpan={4}>

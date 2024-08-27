@@ -5,9 +5,18 @@ import Image from "next/image";
 import { CustomCheckbox } from "./CustomCheckbox";
 import { countries } from "../../data";
 import { useState, useRef } from 'react';
-import { useFormState } from 'react-dom';
+import { useRouter } from 'next/navigation'
+
+import { appendData, selectData, selectStatus, SingleUser } from "@/lib/features/userdata/userdataSlice"
+import { useAppDispatch, useAppSelector } from "@/lib/hooks";
 
 export const Form = () => {
+    const router = useRouter()
+    
+    const dispatch = useAppDispatch();
+    const data = useAppSelector(selectData);
+    const status = useAppSelector(selectStatus);
+
     const [firstNameValid, setFirstNameValid] = useState<boolean>(true);
     const [lastNameValid, setLastNameValid] = useState<boolean>(true);
     const [emailValid, setEmailValid] = useState<boolean>(true);
@@ -83,9 +92,41 @@ export const Form = () => {
 
         // Handle response if necessary
         const data = await response.json()
-        // Send to thank you
-        window.location.href = "/thankyou";
 
+        // SAVE TO STATE - CLIENT SIDE
+        let filePath = '';
+        if (fileInput && fileInput.current && fileInput.current.files) {
+            filePath = "./public/uploads/" + fileInput.current.files[0].name;
+        }
+        const stateUser: SingleUser = {
+            first_name: formFields['first_name'] as string,
+            last_name: formFields['last_name'] as string,
+            submitted: getTime(),
+            email: formFields['email'] as string,
+            linkedin_url: formFields['linkedin'] as string,
+            country: formFields['country'] as string,
+            message: formFields['how_can_we_help'] as string,
+            visa_categories: formFields['selected_visas'],
+            resume: `./public/uploads/${filePath}`,
+            status: "PENDING"
+        }
+        dispatch(appendData(stateUser));
+        
+        // Send to thank you
+        router.push("/thankyou");
+        // window.location.href = "/thankyou";
+
+    }
+
+    const getTime = () => {
+        const date = new Date();
+        const dformat = [date.getDate(),
+            date.getMonth()+1,
+            date.getFullYear()].join('/')+' '+
+           [date.getHours(),
+            date.getMinutes(),
+            date.getSeconds()].join(':');
+        return dformat;
     }
 
     const empty = (value: string | Record<string, string>): boolean => {

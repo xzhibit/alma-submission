@@ -1,8 +1,13 @@
 "use client";
 import styles from "./ThankYou.module.css";
 import Image from "next/image";
+import { useRouter } from 'next/navigation'
 
 export default function ThankYou() {
+    const router = useRouter()
+    const goHome = () => {
+        router.push("/");
+    }
     return (
         <div className={styles.thankyou_container}>
             <Image
@@ -13,7 +18,7 @@ export default function ThankYou() {
             />
             <p className={styles.form_title}>Thank You</p>
             <p className={styles.form_subtitle}>Your information was submitted to our team of immigration attorneys. Expect an email from hello@tryalma.ai.</p>
-            <a href="/" className={styles.btn}>Go Back To Homepage</a>
+            <button onClick={goHome} className={styles.btn}>Go Back To Homepage</button>
         </div>
     )
 }

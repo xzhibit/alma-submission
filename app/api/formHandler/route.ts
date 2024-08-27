@@ -1,3 +1,5 @@
+"use server";
+
 import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
 import fs from "node:fs/promises";
@@ -13,11 +15,13 @@ export async function POST(request: NextRequest, context: Context) {
         object[key] = value;
     });
     const file = body.get("file") as File;
+    let filePath = '';
     if (file) {
         const arrayBuffer = await file.arrayBuffer();
         const buffer = new Uint8Array(arrayBuffer);
         await fs.writeFile(`./public/uploads/${file.name}`, buffer);
+        filePath = `./public/uploads/${file.name}`;
     }
-
+    await fs.writeFile(`./public/uploads/testfile.json`, JSON.stringify(object));
     return NextResponse.json({ data: object });
 }
