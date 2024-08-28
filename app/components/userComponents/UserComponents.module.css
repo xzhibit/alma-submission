@@ -75,7 +75,7 @@
     text-align:center;
     cursor:pointer;
 }
-.loginLink {
+.loginLink, .dashboardLink {
     background:none;
     border:none;
     outline:none;
@@ -85,6 +85,9 @@
     right:14px;
     font-weight:700;
     cursor:pointer;
+}
+.dashboardLink {
+    right:75px;
 }
 @media all and (max-width:1440px) {
     .heading {

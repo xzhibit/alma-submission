@@ -2,23 +2,22 @@
 import { useRouter } from "next/navigation";
 import styles from "./UserComponents.module.css";
 import Image from "next/image";
-
-import { useSession, getSession } from "next-auth/react"
+import { useAuth0 } from "@auth0/auth0-react";
+import { useUser } from '@auth0/nextjs-auth0/client';
 
 export const Header = () => {
-  const { data: session, status } = useSession()
-  const login = () => {
-    router.push('/api/auth/signin');
-  }
+
+  const { user, error, isLoading } = useUser();
+
+
   const dash = () => {
     router.push('/admin')
   }
 
-  let button = <><button className={styles.loginLink} onClick={login}>Login</button></>;
-  if (status === "authenticated") {
-    button = <><button className={styles.loginLink} onClick={dash}>Go to dashboard</button></>;
+  let button = <><a href="/api/auth/login" className={styles.loginLink}>Login</a></>;
+  if (user) {
+    button = <><a href="#!" onClick={dash} className={styles.dashboardLink}>Go to dashboard</a><a href="/api/auth/logout" className={styles.loginLink}>Logout</a></>
   }
-
 
   const router = useRouter();
   return (
