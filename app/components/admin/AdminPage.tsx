@@ -10,7 +10,6 @@ import { useState } from "react";
 export const AdminPage  = () => {
   const { user, error, isLoading } = useUser();
 
-  if (isLoading) return <div>Loading...</div>;
   if (error) return <div>{error.message}</div>;
 
   const router = useRouter();
