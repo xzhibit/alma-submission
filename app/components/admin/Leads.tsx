@@ -13,6 +13,8 @@ import {
     SingleUser
   } from "@/lib/features/userdata/userdataSlice";
 
+import { shallowEqual } from "react-redux";
+
 export const Leads = () => {
     const statusOptions = [
         { "label": "Pending", "value": "PENDING" },
@@ -21,29 +23,21 @@ export const Leads = () => {
     const [search, setSearch] = useState<string>("");
 
     const data = useAppSelector(selectData);
-
     const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const target = event.target;
         setSearch(target.value);
     };
-
     const dispatch = useAppDispatch();
-
     const reachedOut = (x:any) => {
         dispatch(markReachedOut(x));
         setRows(createRows(data))
-        // Update row on page as well
+        // Update rows
+        setRows(createRows(data));
+        console.log(data)
     }
-
     const createRows = (data:any) => {
         return (data.map( (x: any) => <>
-            <tr>
-                <td>{x.first_name} {x.last_name}</td>
-                <td>{x.submitted}</td>
-                <td>{x.status}</td>
-                <td>{x.country}</td>
-                {x.status == "PENDING" ? <td><button className={styles.btn} onClick={() => {reachedOut(x)}}>Reached out</button></td> : <td>-</td>}
-            </tr>
+            
         </>))
     }
     const [rows, setRows] = useState(createRows(data));
@@ -82,7 +76,13 @@ export const Leads = () => {
                         <th></th>
                     </tr>
                 </thead>
-                <tbody>{rows}</tbody>
+                <tbody>{data.map( x => <><tr>
+                <td>{x.first_name} {x.last_name}</td>
+                <td>{x.submitted}</td>
+                <td>{x.status == "PENDING" ? "Pending" : "Reached Out"}</td>
+                <td>{x.country}</td>
+                {x.status == "PENDING" ? <td><button className={styles.btn} onClick={() => {reachedOut(x)}}>Reached out</button></td> : <td>-</td>}
+            </tr></>)}</tbody>
                 <tfoot>
                     <tr>
                         <td colSpan={5}>

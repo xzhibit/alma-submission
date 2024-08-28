@@ -96,7 +96,7 @@ export const Form = () => {
 
         // SAVE TO STATE - CLIENT SIDE
         let filePath = '';
-        if (fileInput && fileInput.current && fileInput.current.files) {
+        if (fileInput && fileInput.current && fileInput.current.files && fileInput.current.files[0]) {
             filePath = "./public/uploads/" + fileInput.current.files[0].name;
         }
 
