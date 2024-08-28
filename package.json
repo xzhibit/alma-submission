@@ -1,11 +1,13 @@
 {
   "private": true,
   "scripts": {
-    "dev": "next dev -H 0.0.0.0",
+    "dev": "next dev -H 0.0.0.0 --experimental-https",
     "build": "next build",
     "start": "next start"
   },
   "dependencies": {
+    "@auth0/auth0-react": "^2.2.4",
+    "@auth0/nextjs-auth0": "^3.5.0",
     "@reduxjs/toolkit": "^2.2.0",
     "next": "latest",
     "next-auth": "^4.24.7",

@@ -1,21 +1,33 @@
 import { AdminSidebar } from "./AdminSidebar";
 import { Leads } from "./Leads";
 import styles from "../../admin/Admin.module.css"
-import { useSession, getSession } from "next-auth/react"
 import { useRouter } from "next/navigation";
-export const AdminPage  = () => {
-  const router = useRouter();
-  const { data: session, status } = useSession()
+import { useUser } from '@auth0/nextjs-auth0/client';
+import { useState } from "react";
 
-  if (status === "authenticated") {
+
+
+export const AdminPage  = () => {
+  const { user, error, isLoading } = useUser();
+
+  if (isLoading) return <div>Loading...</div>;
+  if (error) return <div>{error.message}</div>;
+
+  const router = useRouter();
+  
+  const goHome = () => {
+    router.push("/");
+  }
+
+  if (user) {
     return (
       <div className={styles.container}>
           <AdminSidebar />
           <Leads />
         </div>
       );
-    }
-    return (
-      <><h1>Access denied.</h1> <a href="#" onClick={() => {router.push("/")}}>Go back to home</a></>
-    )
+  } else {
+    return <><h1>Access denied.</h1><a href="#" onClick={goHome}>Click here to go back.</a></>
+  }
+
 } 
