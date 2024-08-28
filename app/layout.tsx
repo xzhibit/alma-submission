@@ -17,18 +17,18 @@ interface Props {
 
 export default function RootLayout({ children }: Props) {
   return (
+      <html lang="en">
+        <body className={montserrat.className}>
     <StoreProvider>
       <SessionProvider>
 
-      <html lang="en">
-        <body className={montserrat.className}>
           <UserProvider>
             <main className={styles.main}>{children}</main>
           </UserProvider>
-        </body>
-      </html>
 
       </SessionProvider>
     </StoreProvider>
+        </body>
+      </html>
   );
 }
